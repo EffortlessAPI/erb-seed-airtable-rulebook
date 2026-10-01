@@ -1,0 +1,19 @@
+{
+  "replacements": [
+    {
+      "key": "projectName",
+      "description": "Short lower-case project name (becomes the repository and database name)",
+      "default": "my-airtable-rulebook"
+    },
+    {
+      "key": "airtableBaseId",
+      "description": "The Airtable base this rulebook came from (starts with 'app'); only used when re-pulling with `effortless build -id`",
+      "default": "appREPLACEME"
+    },
+    {
+      "key": "airtablePat",
+      "description": "Airtable personal access token with read scope on the base; only needed to re-pull",
+      "secret": true
+    }
+  ]
+}
