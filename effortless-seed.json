@@ -1,19 +1,50 @@
 {
+  "seed": {
+    "id": "airtable-rulebook",
+    "displayName": "From Airtable",
+    "tagline": "Turn an Airtable base into a rulebook you own.",
+    "description": "Extracts every table, field, formula, description and record from an Airtable base into a rulebook, then derives everything from it: the Postgres schema, documentation, RuleSpeak, the explainer DAG, an Excel workbook and the browser rulebook editor. Re-pull it with effortless build -id and the rulebook follows the base.",
+    "kind": "root",
+    "category": "root",
+    "stack": "Airtable, Rulebook, Postgres, Markdown, Excel",
+    "requiresInput": "An Airtable base and read access to it",
+    "mountPath": null,
+    "requires": null,
+    "sortOrder": 100
+  },
+  "subSeeds": [],
   "replacements": [
     {
       "key": "projectName",
+      "label": "What should we call it?",
       "description": "Short lower-case project name (becomes the repository and database name)",
       "default": "my-airtable-rulebook"
     },
     {
       "key": "airtableBaseId",
-      "description": "The Airtable base this rulebook came from (starts with 'app'); only used when re-pulling with `effortless build -id`",
-      "default": "appREPLACEME"
+      "label": "Airtable base id",
+      "description": "The base to extract, starting with 'app' (it is in the base's URL: airtable.com/appXXXXXXXXXXXXXX/...).",
+      "placeholder": "appXXXXXXXXXXXXXX",
+      "required": true
     },
     {
       "key": "airtablePat",
-      "description": "Airtable personal access token with read scope on the base; only needed to re-pull",
-      "secret": true
+      "label": "Airtable personal access token",
+      "description": "A token with schema and data read scope on that base. Used once for the extraction and not stored.",
+      "secret": true,
+      "valueType": "secret",
+      "persist": false,
+      "required": true
+    },
+    {
+      "key": "userTables",
+      "label": "Which tables hold people?",
+      "description": "The tables whose rows are people who sign in (users, staff, customers). Leave blank if none do.",
+      "valueType": "choice_multi",
+      "discover": "airtable_tables",
+      "dependsOn": "airtablePat",
+      "required": false,
+      "default": ""
     }
   ]
 }
